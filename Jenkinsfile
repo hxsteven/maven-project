@@ -1,9 +1,13 @@
 pipeline {
     agent any
+    tools {
+        maven 'LoalMaven'
+        jdk 'LocalJDK'
+    }
     stages{
         stage('Build'){
             steps {
-                mvn clean package
+                Bat 'mvn clean package'
             }
             post {
                 success {
