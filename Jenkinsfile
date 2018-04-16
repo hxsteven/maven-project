@@ -30,7 +30,7 @@ pipeline {
             parallel {
                 stage ('Deploy to Staging'){
                     steps {
-                        bat "winscp -i /home/jenkins/NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat_dev}:/var/lib/tomcat7/webapps"
+                        bat '"C://Program Files (x86)//WinSCP/WinSCP.exe" -i /home/jenkins/NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat_dev}:/var/lib/tomcat7/webapps'
                     }
                 }
                 stage ("Deploy to Production"){
