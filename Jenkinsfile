@@ -30,7 +30,7 @@ pipeline {
             parallel {
                 stage ('Deploy to Staging'){
                     steps {
-                        bat '"C:\\Program Files\\Git\\usr\\bin\\scp.exe" -i "C:\\Users\\haixi\\NewKeyPair.pem" **/target/*.war ec2-user@${params.tomcat_dev}:/var/lib/tomcat8/webapps'
+                        bat '"C:\\Program Files\\Git\\usr\\bin\\scp.exe" -i "C:\\Users\\haixi\\NewKeyPair.pem" **/target/*.war ec2-user@35.182.52.19:/var/lib/tomcat8/webapps'
                     }
                 }
                 stage ("Deploy to Production"){
