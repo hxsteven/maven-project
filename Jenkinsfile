@@ -6,8 +6,8 @@ pipeline {
     }
 
     parameters {
-         string(name: 'tomcat_dev', defaultValue: 'localhost:8090', description: 'Staging Server')
-         string(name: 'tomcat_prod', defaultValue: 'localhost:9090', description: 'Production Server')
+         string(name: 'tomcat_dev', defaultValue: '35.182.52.19', description: 'Staging Server')
+         string(name: 'tomcat_prod', defaultValue: '35.183.5.86', description: 'Production Server')
     }
 
     triggers {
@@ -17,7 +17,7 @@ pipeline {
     stages{
         stage('Build'){
             steps {
-                bat 'mvn clean package'
+                sh 'mvn clean package'
             }
             post {
                 success {
@@ -30,12 +30,12 @@ pipeline {
             parallel {
                 stage ('Deploy to Staging'){
                     steps {
-                        bat "scp **/target/*.war tomcat:tomcat@${params.tomcat_dev}:/webapps"
+                        sh "scp -i /c/Users/haixin/NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat_dev}:/var/lib/tomcat8/webapps"
                     }
                 }
                 stage ("Deploy to Production"){
                     steps {
-                        bat "scp **/target/*.war tomcat:tomcat@${params.tomcat_prod}:/webapps"
+                        sh "scp -i /c/Users/haixin/NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat8/webapps"
                     }
                 }
             }
