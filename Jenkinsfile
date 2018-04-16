@@ -30,12 +30,12 @@ pipeline {
             parallel {
                 stage ('Deploy to Staging'){
                     steps {
-                        sh "cp **/target/*.war tomcat:tomcat@${params.tomcat_dev}:\webapps"
+                        sh "cp **/target/*.war tomcat:tomcat@${params.tomcat_dev}:/webapps"
                     }
                 }
                 stage ("Deploy to Production"){
                     steps {
-                        sh "cp **/target/*.war tomcat:tomcat@${params.tomcat_prod}:\webapps"
+                        sh "cp **/target/*.war tomcat:tomcat@${params.tomcat_prod}:/webapps"
                     }
                 }
             }
