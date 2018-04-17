@@ -1,8 +1,8 @@
 pipeline {
     agent any
     tools {
-        maven 'LocalMaven'
-        jdk 'LocalJDK'
+        maven 'localMaven'
+        jdk 'localJDK'
     }
 
     parameters {
