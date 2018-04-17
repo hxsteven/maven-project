@@ -17,7 +17,7 @@ pipeline {
     stages{
         stage('Build'){
             steps {
-                bat 'mvn clean package'
+                sh 'mvn clean package'
             }
             post {
                 success {
@@ -30,12 +30,12 @@ pipeline {
             parallel {
                 stage ('Deploy to Staging'){
                     steps {
-                        bat '"C://Program Files (x86)//WinSCP/WinSCP.exe" -i /home/jenkins/NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat_dev}:/var/lib/tomcat8/webapps'
+                        sh "scp -i /home/jenkins/NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat_dev}:/var/lib/tomcat8/webapps"
                     }
                 }
                 stage ("Deploy to Production"){
                     steps {
-                        bat '"C://Program Files (x86)//WinSCP/WinSCP.exe" -i /home/jenkins/NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat8/webapps'
+                        sh "scp -i /home/jenkins/NewKeyPair.pem **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat8/webapps"
                     }
                 }
             }
